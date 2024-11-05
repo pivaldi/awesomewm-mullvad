@@ -1,5 +1,5 @@
 -------------------------------------------------
--- awesomewm widget to check protovpn status
+-- awesomewm widget to check mullvad status
 --
 -- @author Philippe IVALDI
 -- @copyright 2024 Philippe IVALDI
@@ -77,7 +77,7 @@ local wdg = wibox.widget {
           format = format_ko
           last_status = stdout .. "\n" .. stderr
         else
-          if string.find(stderr .. stdout, ".*Connected!.*") then
+          if string.find(stderr .. stdout, ".*Connected.*") then
             format = format_ok
             last_status = stdout
           else
@@ -201,7 +201,7 @@ local function update_status()
     cli_path .. " status",
     function(stdout, stderr, _, exitcode)
       local format = ""
-      if exitcode ~= 0 or stderr ~= "" or not string.find(stdout, "^Connected to ") then
+      if exitcode ~= 0 or stderr ~= "" or not string.find(stdout, "^Connected") then
         format = format_ko
         last_status = stdout .. "\n" .. stderr
       else
